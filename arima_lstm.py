@@ -223,6 +223,7 @@ if uploaded_file is not None:
         # Using 'Close' prices for modeling
         data = stock_data[['Close']].dropna()
 
+        st.subheader("Uji Augmented Dickey Fuller")
         # Perform Dickey-Fuller test
         def perform_dickey_fuller(series):
             result = adfuller(series)
@@ -244,7 +245,7 @@ if uploaded_file is not None:
         p_value = adf_test[1]
 
         if p_value > 0.05:
-            st.write("Data tidak stasioner, melakukan differencing...")
+            st.write("Data tidak stasioner, melakukan differencing")
             data_diff = data['Close'].diff().dropna()  # First differencing
             perform_dickey_fuller(data_diff)
         else:
@@ -259,6 +260,7 @@ if uploaded_file is not None:
         ax.set_ylabel('Differenced Close Price')
         ax.legend()
         st.pyplot(fig)
+        st.write("""Grafik ini menunjukkan fluktuasi harga saham yang lebih stabil setelah proses differencing diterapkan pada data. Sebelumnya, data harga saham BMRI memiliki pola yang cenderung naik-turun secara tidak teratur. Namun, setelah dilakukan differencing, perubahan harga antara satu titik waktu dengan yang berikutnya dihitung, yang menghasilkan pola yang lebih acak dengan amplitudo fluktuasi yang lebih besar.""")
 
         # Splitting the dataset into training and testing sets
         train_size = int(len(data_diff) * 0.8)
