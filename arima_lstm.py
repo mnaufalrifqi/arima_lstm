@@ -125,6 +125,7 @@ if uploaded_file is not None:
         # Show model summary in Streamlit
         st.subheader("LSTM Model Summary")
         model.summary(print_fn=lambda x: st.text(x))
+        st.write("""Model LSTM terdiri dari dua lapisan LSTM (128 unit dan 64 unit), diikuti oleh Dropout untuk mencegah overfitting. Terdapat dua lapisan Dense (32 unit dan 1 unit untuk prediksi akhir). Model ini memiliki 354.245 parameter, dengan 118.081 parameter trainable, dirancang untuk menangkap pola kompleks dalam data time series dan memberikan prediksi optimal.""")
 
         # Visualize Loss and MAE during training
         fig_loss, ax_loss = plt.subplots(figsize=(10, 5))
@@ -144,6 +145,7 @@ if uploaded_file is not None:
         ax_mae.set_ylabel('MAE')
         ax_mae.legend()
         st.pyplot(fig_mae)
+        st.write("""Grafik loss dan MAE menunjukkan penurunan konsisten pada data pelatihan dan validasi, mengindikasikan model berhasil meminimalkan kesalahan dan meningkatkan akurasi prediksi. Penurunan stabil ini menandakan model tidak mengalami overfitting atau underfitting, sehingga konfigurasi dan parameter pelatihan sudah optimal.""")
 
         # Make predictions
         pred = model.predict(X_test)
@@ -212,6 +214,7 @@ if uploaded_file is not None:
 
         # Display the plot in Streamlit
         st.pyplot(fig)
+        st.write("""Prediksi LSTM menunjukkan model dapat memperkirakan harga saham BMRI dengan baik, mengikuti pola tren historis. Model berhasil merepresentasikan tren harga, termasuk kenaikan dan penurunan signifikan, menunjukkan potensi besar LSTM untuk prediksi harga saham yang akurat.""")
 
         # Display prediction results in a table
         st.subheader("Perubahan Harga Prediksi")
@@ -270,7 +273,8 @@ if uploaded_file is not None:
         model = ARIMA(train, order=(2,1,2))
         model_fit = model.fit()
         st.write(model_fit.summary())
-
+        st.write("""Pada tahap fitting model ARIMA(2,1,2), hasil estimasi menunjukkan bahwa koefisien AR(1) dan AR(2) signifikan, sementara MA(1) tidak signifikan. Koefisien MA(2) signifikan. Nilai AIC dan BIC masing-masing adalah 10850.086 dan 10874.457, menunjukkan bahwa model ini cocok dengan data. Uji diagnostik menunjukkan tidak ada masalah autokorelasi atau heteroskedastisitas pada residual, sehingga model ini dianggap baik untuk prediksi harga saham.""")
+        
         # Making predictions
         y_pred_diff = model_fit.forecast(steps=len(test))
         y_pred = data['Close'].iloc[train_size-1] + y_pred_diff.cumsum()
@@ -293,6 +297,7 @@ if uploaded_file is not None:
         st.metric("MAPE (Mean Absolute Percentage Error)", f"{mape:.4f}")
         st.metric("MSE (Mean Squared Error)", f"{mse:.7f}")
         st.metric("RMSE (Root Mean Squared Error)", f"{rmse:.4f}")
+        st.write("""Hasil Evaluasi model ARIMA(2,1,2) meskipun model ini menunjukkan kinerja yang baik, masih ada kesalahan yang perlu diperbaiki dalam prediksi harga saham BMRI.""")
 
         # Plotting actual vs predicted prices
         fig, ax = plt.subplots(figsize=(15, 7))
@@ -311,6 +316,8 @@ if uploaded_file is not None:
         # Displaying the plot in Streamlit
         st.pyplot(fig)
 
+        st.write("""Prediksi harga saham dengan ARIMA(2,1,2) menunjukkan hasil yang baik. Grafik membandingkan harga aktual (garis biru) dan prediksi (garis merah). Meskipun fluktuasi terlihat, model berhasil menangkap tren naik harga saham. Namun, prediksi cenderung lebih halus, menunjukkan perbedaan antara tren jangka panjang dan pergerakan harian.""")
+        
         # Displaying predictions in a table
         st.subheader("Prediksi Harga Saham BMRI")
         predicted_prices = pd.DataFrame({
