@@ -224,7 +224,7 @@ if uploaded_file is not None:
 
         # Display the plot in Streamlit
         st.pyplot(fig)
-        st.write("""Prediksi LSTM menunjukkan model dapat memperkirakan harga saham BMRI dengan baik, mengikuti pola tren historis. Model berhasil merepresentasikan tren harga, termasuk kenaikan dan penurunan signifikan, menunjukkan potensi besar LSTM untuk prediksi harga saham yang akurat.""")
+        st.write("""Model LSTM menunjukkan kinerja yang lebih unggul dibandingkan dengan ARIMA dalam memprediksi harga saham. LSTM memiliki MAE yang jauh lebih rendah (0.02757) dibandingkan ARIMA (531.2884), serta MAPE (3,27%) dan RMSE (0.03202) yang lebih kecil, menunjukkan kesalahan prediksi yang lebih kecil dan kemampuan lebih baik dalam menangani fluktuasi harga. LSTM juga lebih efektif dalam menangkap pola pergerakan harga saham, termasuk tren jangka panjang dan fluktuasi harga yang signifikan, dibandingkan ARIMA yang cenderung lebih baik dalam menangani tren jangka panjang tetapi dengan kesalahan yang lebih besar.""")
 
         # Display prediction results in a table
         st.subheader("Perubahan Harga Prediksi")
