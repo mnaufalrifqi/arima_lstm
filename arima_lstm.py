@@ -40,8 +40,18 @@ if uploaded_file is not None:
     ax.legend()
     st.pyplot(fig)
 
-    model_choice = st.selectbox('Pilih Model Prediksi:', ['ARIMA', 'LSTM'])
+    model_choice = st.selectbox('Pilih Model Prediksi:', ['ARIMA', 'LSTM', 'Perbandingan Evaluasi Metrik'])
 
+    # Define the evaluation metrics
+    evaluation_metrics = {
+        'Metrik Evaluasi': ['MAE', 'MAPE', 'MSE', 'RMSE'],
+        'ARIMA': [531.2884, '7.81%', 422040.5890, 649.6465],
+        'LSTM': [0.02757, '3.27%', 0.00103, 0.03202]
+    }
+
+    # Create a DataFrame for comparison table
+    df_comparison = pd.DataFrame(evaluation_metrics)
+    
     if model_choice == 'LSTM':
         st.subheader("LSTM Model")
 
@@ -330,3 +340,7 @@ if uploaded_file is not None:
 
         # Displaying the table with the new column
         st.write(predicted_prices)
+
+    elif model_choice == 'Perbandingan Evaluasi Metrik':
+        st.subheader("Perbandingan Evaluasi Metrik Model ARIMA dan LSTM")
+        st.write(df_comparison)
