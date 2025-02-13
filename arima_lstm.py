@@ -16,7 +16,7 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import adfuller
 
 # Streamlit UI for model selection
-st.title("Prediksi Harga Saham BMRI : ARIMA vs LSTM")
+st.title("📈Prediksi Harga Saham BMRI : ARIMA vs LSTM📉")
 
 # Add file upload widget
 uploaded_file = st.file_uploader("Unggah File CSV (hanya file dengan data harga saham BMRI)", type="csv")
